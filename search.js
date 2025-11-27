@@ -1,9 +1,9 @@
 const axios = require('axios');
-const { wrapper } = require('axios-cookie-jar-support');
+const { wrapper } = require('axios-cookiejar-support');
 const { CookieJar } = require('tough-cookie');
 const qs = require('qs');
-const fs = require('fs/promises');
-const puppeteer = require('puppeteer');
+//const fs = require('fs/promises');
+const puppeteer = require('puppeteer-core');
 
 // Params de busca
 // const codigoOrigem = 21820;
