@@ -77,9 +77,11 @@ async function runPuppeteerFallback() {
         } else {
             console.log('Nenhum dado estruturado encontrado via Puppeteer, mas a página carregou.');
         }
+        return viagens;
 
     } catch (error) {
         console.error("Erro no Puppeteer:", error.message);
+        return [];
     } finally {
         if (browser) await browser.close();
     }
@@ -148,7 +150,7 @@ async function main(codigoOrigem, codigoDestino, dia, mes, ano) {
             const localSaida = v.localSaidaLocalidade || v.localSaida;
             const localChegada = v.localChegadaLocalidade || v.localChegada;
 
-            console.log(`#${i + 1} - Serviço:${servico} - ${localSaida} ${saida} -> ${localChegada} ${chegada} - Preço: ${preco} - Assentos:${assentos}`);
+            // console.log(`#${i + 1} - Serviço:${servico} - ${localSaida} ${saida} -> ${localChegada} ${chegada} - Preço: ${preco} - Assentos:${assentos}`);
 
             dados.push({
                 servico,
@@ -170,8 +172,8 @@ async function main(codigoOrigem, codigoDestino, dia, mes, ano) {
     } catch (error) {
         console.error("Erro na requisição HTTP:", error.message);
         // Em caso de erro grave na requisição, tenta o fallback
-        await runPuppeteerFallback();
+        return await runPuppeteerFallback();
     }
 }
 
-main(228, 21820, 28, 11, 2025);
+module.exports = { main };
